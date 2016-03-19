@@ -1,13 +1,41 @@
 <html>
-    <head>
-        <title>EvenSharper - Home</title>
-        <link rel="stylesheet" href="css/main.css"/>
-    </head>
-    <body>
-        <div class="row">
-            <div class="panel">
-                <textarea class="text-editor"></textarea>
+
+<head>
+    <title>EvenSharper - Home</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="lib/codemirror.js"></script>
+    <link rel="stylesheet" href="lib/codemirror.css">
+    <script src="./mode/clike/clike.js"></script>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <script src="js/shortcut.js"></script>
+</head>
+
+<body>
+    <div class="row">
+        <div class="large-12 columns">
+            <p><h1>EvenSharper</h1></p>
+            <p><h5>Compile C# in your browser!</h5></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="callout">
+                <div class="editor">
+                    <textarea id="textArea" name="content" cols="80" rows="80"></textarea>
+                </div>
+                <a href="#" onclick="compileCode()" class="small button">Compile</a>
             </div>
         </div>
-    </body>
+    </div>
+    <script src="editor.js" /></script>
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/what-input.min.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
 </html>
