@@ -1,0 +1,66 @@
+#Compile script
+import clr
+clr.AddReference('Microsoft.CSharp')
+clr.AddReference('System.Web')
+from System import *
+from System.Web import *
+from System.IO import *
+from System.CodeDom.Compiler import *
+from Microsoft.CSharp import *
+from System.Text import *
+
+def sendFile(path, mime):
+    with File.OpenRead(FireHTTPServer.DocumentRoot+dirSep+path) as fs:
+        sr = StreamReader(fs)
+        response.SendHeader("HTTP/1.1 200 OK")
+        response.SendHeader("Content-Type: "+mime)
+        response.SendHeader('Content-Disposition: attachment; filename="application.exe"')
+        response.SendEndHeaders()
+        response.OutputStream.Flush()
+        fs.CopyTo(response.OutputStream.BaseStream)
+        
+def buildErrorList(compilerResults):
+    ret = ""
+    for CompErr in compilerResults.Errors:
+        ret += "Line number " + str(CompErr.Line) + ", Error Number: " + str(CompErr.ErrorNumber) + ", '" + str(CompErr.ErrorText) + ";" + str(Environment.NewLine + Environment.NewLine)
+    return ret
+    
+def atob(estr):
+    mod4 = len(estr)
+    if (mod4 > 0):
+        estr+=String('=', 4 - mod4)
+    return estr
+
+rawpostcode = _POST['code']
+#Console.WriteLine(rawpostcode)
+#code = atob(rawpostcode)
+code = Uri.UnescapeDataString(rawpostcode).Replace("+"," ")
+Console.WriteLine(code)
+language = _POST['lang']
+
+buildDir = 'esbuild' + Path.DirectorySeparatorChar
+if (not Directory.Exists(buildDir)):
+    Directory.CreateDirectory(buildDir)
+
+outputFn = buildDir + Guid.NewGuid().ToString('N')+'.exe'
+
+codeProvider = CSharpCodeProvider()
+icc = codeProvider.CreateCompiler()
+parameters = CompilerParameters()
+parameters.GenerateExecutable = True
+parameters.OutputAssembly = outputFn
+results = icc.CompileAssemblyFromSource(parameters, code)
+errorNum = results.Errors.Count
+
+#Send reply
+Console.WriteLine('[COMPILE.ESCX] Compilation finished with '+str(errorNum)+' errors.')
+if (errorNum > 0):
+    response.SendHeader("HTTP/1.1 200 OK")
+    response.SendHeader("Content-Type: text/html")
+    response.SendEndHeaders()
+    response.OutputStream.WriteLine('Compilation Failed with '+str(errorNum)+' errors.')
+    errStr = buildErrorList(results)
+    Console.WriteLine(errStr)
+    response.OutputStream.WriteLine(errStr)
+else:
+    sendFile(outputFn,'application/octet-stream')
