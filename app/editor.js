@@ -79,3 +79,7 @@ textEditor.on('change', function(cMirror) {
 shortcut.add("Ctrl+S", function() {
     saveCode(textEditor.getValue());
 });
+
+shortcut.add("F5", function() {
+    compileCode();
+});

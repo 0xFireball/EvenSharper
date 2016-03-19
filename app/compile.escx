@@ -51,6 +51,7 @@ parameters.GenerateExecutable = True
 parameters.OutputAssembly = outputFn
 parameters.ReferencedAssemblies.Add("System.dll")
 parameters.ReferencedAssemblies.Add("System.Core.dll")
+parameters.ReferencedAssemblies.Add("System.Windows.Forms.dll")
 results = icc.CompileAssemblyFromSource(parameters, code)
 errorNum = results.Errors.Count
 
