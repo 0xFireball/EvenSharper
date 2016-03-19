@@ -9,16 +9,17 @@ from System.CodeDom.Compiler import *
 from Microsoft.CSharp import *
 from System.Text import *
 
-def sendFile(path, mime):
+def sendFile(path, mime, rName):
     with File.OpenRead(FireHTTPServer.DocumentRoot+dirSep+path) as fs:
         sr = StreamReader(fs)
         response.SendHeader("HTTP/1.1 200 OK")
         response.SendHeader("Content-Type: "+mime)
-        response.SendHeader('Content-Disposition: attachment; filename="application.exe"')
+        response.SendHeader('Content-Disposition: attachment; filename="'+rName+'"')
         response.SendEndHeaders()
         response.OutputStream.Flush()
         fs.CopyTo(response.OutputStream.BaseStream)
-        
+    File.Delete(path)
+
 def buildErrorList(compilerResults):
     ret = ""
     for CompErr in compilerResults.Errors:
@@ -31,6 +32,7 @@ def atob(estr):
         estr+=String('=', 4 - mod4)
     return estr
 
+mainFn = _POST['mainFn']
 rawpostcode = _POST['code']
 #Console.WriteLine(rawpostcode)
 #code = atob(rawpostcode)
@@ -44,10 +46,13 @@ if (not Directory.Exists(buildDir)):
 
 outputFn = buildDir + Guid.NewGuid().ToString('N')+'.exe'
 
+isExe = mainFn[:4] == '.exe'
+enableNB = _POST['NetBitz'] == True
+
 codeProvider = CSharpCodeProvider()
-icc = codeProvider.CreateCompiler()
+icc = codeProvider.CreateProvider("CSharp")
 parameters = CompilerParameters()
-parameters.GenerateExecutable = True
+parameters.GenerateExecutable = isExe
 parameters.OutputAssembly = outputFn
 parameters.ReferencedAssemblies.Add("System.dll")
 parameters.ReferencedAssemblies.Add("System.Core.dll")
@@ -69,4 +74,4 @@ if (errorNum > 0):
     response.OutputStream.WriteLine('</pre>')
     response.OutputStream.WriteLine('<a href="index.html">Back</a>')
 else:
-    sendFile(outputFn,'application/octet-stream')
+    sendFile(outputFn,'application/octet-stream', mainFn)

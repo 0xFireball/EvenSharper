@@ -17,17 +17,32 @@
 <body>
     <div class="row">
         <div class="large-12 columns">
-            <p><h1>EvenSharper</h1></p>
-            <p><h5>Write C# and compile online!</h5></p>
+            <p>
+                <h1>EvenSharper</h1></p>
+            <p>
+                <h5>Write and compile your C# code!</h5>
+                <h6><a href="help.html">Help/How it works</a></h6></p>
         </div>
     </div>
     <div class="row">
         <div class="large-12 columns">
-            <div class="callout">
-                <div class="editor">
+            <div class="callout editor">
+                <form>
+                    <div class="row">
+                        <div class="medium-4 columns">
+                            <fieldset>
+                                <label>Executable Name
+                                    <input type="text" placeholder="Executable Name (default is program.exe)" id="exeName">
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+                <div>
                     <textarea id="textArea" name="content" cols="80" rows="80"></textarea>
                 </div>
-                <a href="#" onclick="compileCode()" class="small button">Compile</a>
+                <fieldset><a href="#" onclick="compileCode()" class="small button">Compile</a>
+                <input id="nbCheckbox" type="checkbox"><label for="checkbox1" disabled>Enable Experimental NetBitz Compressor (EXEs only)</label>
             </div>
         </div>
     </div>

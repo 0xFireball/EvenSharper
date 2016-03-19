@@ -4,12 +4,16 @@ function saveCode(codeVal) {
 
 function loadCode() {
     var code = localStorage.getItem("code");
-    if (!code) {
-        return "";
-    }
-    else {
-        return code;
-    }
+    return code || "";
+}
+
+function loadSettings()
+{
+    document.getElementById('exeName').value = localStorage.getItem("exeName") || 'program.exe';
+}
+function saveSettings()
+{
+    localStorage.setItem("exeName", document.getElementById('exeName').value || 'program.exe');
 }
 
 function post(path, params, method) {
@@ -39,7 +43,9 @@ function post(path, params, method) {
 function compileCode() {
     var postData = {
         code: textEditor.getValue(),
-        lang: "csharp"
+        lang: "csharp",
+        NetBitz: document.getElementById('nbCheckbox').checked,
+        mainFn: document.getElementById('exeName').value || 'program.exe'
     };
     post('./compile.escx', postData);
     /*
@@ -70,16 +76,20 @@ var textEditor = CodeMirror(function(elt) {
     }
 );
 
-textEditor.setSize(null, "100%");
-
+loadSettings();
+textEditor.setSize(null, "70%");
+document.getElementById('nbCheckbox').enabled = false;
 textEditor.on('change', function(cMirror) {
     saveCode(cMirror.getValue());
+    saveSettings();
 });
 
 shortcut.add("Ctrl+S", function() {
     saveCode(textEditor.getValue());
+    saveSettings();
 });
 
 shortcut.add("F5", function() {
+    saveSettings();
     compileCode();
 });

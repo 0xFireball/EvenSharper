@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <title>EvenSharper - Help</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <script src="js/shortcut.js"></script>
+</head>
+
+<body>
+    <div class="row">
+        <div class="large-12 columns">
+            <p>
+                <h1>EvenSharper</h1></p>
+            <p>
+                <h5>Write and compile your C# code!</h5>
+                <h6><a href="index.html">Editor</a></h6></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="callout">
+                <h2>How it works</h2>
+                <p>
+                    EvenSharper runs on <a href="https://github.com/AluminumDev/FireHTTP">FireHTTPServer</a>, also created
+                    by <a href="https://github.com/0xFireball">0xFireball</a>. Every time you press the Compile button, your
+                    code is sent to the server, which has a powerful built-in engine for scripting ExaScript on the .NET
+                    Framework. FireHTTPServer and ExaScript run on Windows out-of-the-box, and on OS X and Linux with the
+                    Mono Framework.
+                </p>
+                <h2>Help/Tips</h2>
+                <p>
+                    <ul>
+                        <li>
+                            Your code is saved in HTML5 local storage, so it will not be lost every time you refresh. However, if you clear stored site
+                            data, your code will be lost. For this reason, we recommend storing your raw code in text format
+                            locally, and pasting into the text editor only for compilation.
+                        </li>
+                        <li>
+                            More stuff is hopefully coming soon!
+                        </li>
+                        <li>
+                            The type of assembly (DLL or EXE) is inferred based on the file extension!
+                        </li>
+                    </ul>
+                </p>
+                <h2>Technical Info</h2>
+                <p>
+                    <h4>Referenced Assemblies</h4>
+                    <p>
+                        Only a subset of all of the .NET Framework assemblies are referenced. By default, you get all of the assemblies from the
+                        following list. The assemblies are sufficient for self-contained command-line executables and Windows
+                        Forms GUI applications.
+                    </p>
+                    <ul>
+                        <li>mscorlib.dll</li>
+                        <li>System.dll</li>
+                        <li>System.Core.dll</li>
+                        <li>System.Windows.Forms.dll</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/what-input.min.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
