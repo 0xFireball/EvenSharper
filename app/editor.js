@@ -78,7 +78,6 @@ var textEditor = CodeMirror(function(elt) {
 
 loadSettings();
 textEditor.setSize(null, "70%");
-document.getElementById('nbCheckbox').enabled = false;
 textEditor.on('change', function(cMirror) {
     saveCode(cMirror.getValue());
     saveSettings();
