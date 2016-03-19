@@ -1,11 +1,13 @@
-.text-editor
+.textArea
 {
     margin-left: auto;
     margin-right: auto;
+    height: 70%;
 }
 .editor
 {
 	margin: 4; 
 	padding: 4;
 	overflow: hidden;
+    height: 70%;
 }

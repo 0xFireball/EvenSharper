@@ -44,14 +44,17 @@ function compileCode() {
     post('./compile.escx', postData);
     /*
     $.post('/compile.escx', postData, function(retData,status,xhr) {
-        alert(retData.url);
+        if (retData.substring(0,2)=='MZ')
+        {
+            
+        }
+        console.log(retData);
         var iframe = document.createElement("iframe");
         iframe.setAttribute("src", retData.url);
         iframe.setAttribute("style", "display: none");
         document.body.appendChild(iframe);
-    }); 
+    });
     */
-
 }
 
 var textArea = document.getElementById("textArea");
@@ -66,6 +69,8 @@ var textEditor = CodeMirror(function(elt) {
         mode: "text/x-csharp"
     }
 );
+
+textEditor.setSize(null, "100%");
 
 textEditor.on('change', function(cMirror) {
     saveCode(cMirror.getValue());

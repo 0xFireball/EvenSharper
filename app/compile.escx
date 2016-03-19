@@ -49,6 +49,8 @@ icc = codeProvider.CreateCompiler()
 parameters = CompilerParameters()
 parameters.GenerateExecutable = True
 parameters.OutputAssembly = outputFn
+parameters.ReferencedAssemblies.Add("System.dll")
+parameters.ReferencedAssemblies.Add("System.Core.dll")
 results = icc.CompileAssemblyFromSource(parameters, code)
 errorNum = results.Errors.Count
 
@@ -58,9 +60,12 @@ if (errorNum > 0):
     response.SendHeader("HTTP/1.1 200 OK")
     response.SendHeader("Content-Type: text/html")
     response.SendEndHeaders()
+    response.OutputStream.WriteLine('<pre>')
     response.OutputStream.WriteLine('Compilation Failed with '+str(errorNum)+' errors.')
     errStr = buildErrorList(results)
     Console.WriteLine(errStr)
     response.OutputStream.WriteLine(errStr)
+    response.OutputStream.WriteLine('</pre>')
+    response.OutputStream.WriteLine('<a href="index.html">Back</a>')
 else:
     sendFile(outputFn,'application/octet-stream')
