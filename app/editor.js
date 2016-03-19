@@ -37,7 +37,7 @@ function post(path, params, method) {
 }
 
 function compileCode() {
-    postData = {
+    var postData = {
         code: textEditor.getValue(),
         lang: "csharp"
     };
