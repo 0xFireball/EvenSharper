@@ -5,4 +5,4 @@ EvenSharper is a simple application that serves a web page with a C# code editor
 
 EvenSharper runs on Windows, Mac, and Linux with Mono.
 
-![EvenSharper in Action](demo.png)
+![EvenSharper in Action](demo.PNG)
