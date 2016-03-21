@@ -1,6 +1,6 @@
 var NwBuilder = require('nw-builder');
 var nw = new NwBuilder({
-    files: './*.{js,png,json}', // use the glob format
+    files: './**/*.{js,png,json,html,css}', // use the glob format
     platforms: ['linux64', 'osx64', 'win32', 'win64'],
     version: '0.12.3',
     zip: true // <- this solve the problem
